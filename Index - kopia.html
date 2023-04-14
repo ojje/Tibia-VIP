@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  KAJKO
+  <!--<meta http-equiv="refresh" content="30">-->
+    <title>Tibia VIP</title>
+	<font color="blue"> 
+  </head>
+  <body style="background-color:black;">
+    <h1>Tibia VIP</h1>
+    <ul>
+	<b>
+	<font size="5"> 
+<!--  <li><span id="ojjesio"></span> (<span id="ojjesio-alias"></span>)</li> -->
+      <li><span id="ojjeman"></span> (<span id="ojjeman-alias">Ojjes second char</span>)</li>
+      <li><span id="ojjesio"></span> (<span id="ojjesio-alias">Ojjes main</span>)</li>
+	</b>
+	  
+      <!-- Add more character names and aliases here -->
+    </ul>
+    </font>
+    <script>
+      fetch('https://api.tibiadata.com/v3/world/Premia')
+        .then(response => response.json())
+        .then(data => {
+          const onlinePlayers = data.worlds.world.online_players;
+          const characterNames = ['Ojjeman', 'Ojje Sio'];
+          characterNames.forEach(name => {
+            const element = document.getElementById(name.toLowerCase().replace(' ', ''));
+            const aliasElement = document.getElementById(name.toLowerCase().replace(' ', '') + '-alias');
+            const player = onlinePlayers.find(p => p.name === name);
+            if (player) {
+              element.textContent = name;
+              element.style.color = 'green';
+              //aliasElement.textContent = 'Online';
+              aliasElement.style.color = 'green';
+            } else {
+              element.textContent = name;
+              element.style.color = 'red';
+              //aliasElement.textContent = 'Offline';
+              aliasElement.style.color = 'red';
+            }
+          });
+        })
+        .catch(error => console.error(error));
+		setInterval(function() {
+    location.reload();
+}, 60000);
+    </script>
+  </body>
+</html>
